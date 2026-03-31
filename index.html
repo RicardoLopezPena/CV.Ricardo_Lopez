@@ -1213,6 +1213,18 @@ let currentLang = 'es';
 function setLang(lang) {
   currentLang = lang;
 
+  function downloadCV() {
+    // Determina qué archivo bajar basándose en el idioma activo
+    const archivo = (currentLang === 'en') ? 'CV_Ricardo_Lopez_EN.pdf' : 'CV_Ricardo_Lopez_ES.pdf';
+    
+    // Crea un enlace invisible para forzar la descarga inmediata
+    const link = document.createElement('a');
+    link.href = archivo;
+    link.download = archivo;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
   // Toggle buttons
   document.getElementById('btn-es').classList.toggle('active', lang === 'es');
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
