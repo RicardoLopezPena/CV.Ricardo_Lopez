@@ -1304,3 +1304,19 @@ function downloadCV() {
   link.click();
   document.body.removeChild(link);
 }
+// ---- SCROLL REVEAL ----
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('reveal-visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Inicializar idioma al cargar
+  window.onload = () => setLang('es');
+</script>
+</body>
+</html>
