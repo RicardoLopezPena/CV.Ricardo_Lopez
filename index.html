@@ -745,13 +745,11 @@
   <div class="top-actions">
     <button class="lang-btn active" onclick="setLang('es')" id="btn-es">ES</button>
     <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
-   <a href="javascript:void(0)" 
-   class="download-btn" 
-   onclick="downloadCV()" 
-   style="display: inline-flex; align-items: center; padding: 10px 20px; background-color: var(--gold); color: var(--dark-bg); text-decoration: none; border-radius: 4px; font-weight: bold; min-width: 150px; justify-content: center;">
-    <span data-lang="es" class="active">DESCARGAR CV</span>
-    <span data-lang="en" style="display:none;">DOWNLOAD CV</span>
-</a>
+    <a href="https://drive.google.com/file/d/1fQsBo39Ipq6kL6hHz_n2G41MehP9_BiS/view?usp=drive_link" class="download-btn" onclick="downloadCV()">
+      ⬇ <span data-lang="es" class="active">Descargar CV</span><span data-lang="en">Download CV</span>
+    </a>
+  </div>
+</header>
 
 <!-- HERO -->
 <section class="hero">
@@ -1215,18 +1213,6 @@ let currentLang = 'es';
 function setLang(lang) {
   currentLang = lang;
 
-  function downloadCV() {
-    // Determina el archivo según el idioma activo (currentLang se define en la línea 1211)
-    const archivo = (currentLang === 'en') ? 'cv_en_ricardo_lopez_2026.pdf' : 'cv_en_ricardo_lopez_2026.pdf';
-    
-    // Crea un enlace temporal para forzar la descarga
-    const link = document.createElement('a');
-    link.href = archivo; 
-    link.download = archivo;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
   // Toggle buttons
   document.getElementById('btn-es').classList.toggle('active', lang === 'es');
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
@@ -1318,8 +1304,3 @@ function downloadCV() {
   link.click();
   document.body.removeChild(link);
 }
-
-// ---- SCROLL REVEAL ----
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersectin
