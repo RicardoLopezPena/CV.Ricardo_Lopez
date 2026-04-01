@@ -745,7 +745,7 @@
   <div class="top-actions">
     <button class="lang-btn active" onclick="setLang('es')" id="btn-es">ES</button>
     <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
-    <a href="cv_es_ricardo_lopez_2026.png" class="download-btn" onclick="downloadCV()">
+    <a href="cv_es_ricardo_lopez_2026.pdf" class="download-btn" onclick="downloadCV()">
       ⬇ <span data-lang="es" class="active">Descargar CV</span><span data-lang="en">Download CV</span>
     </a>
   </div>
@@ -1294,8 +1294,8 @@ async function submitForm(e) {
 function downloadCV() {
   // Creates a text-based CV download as fallback
   const link = document.createElement('a');
-  link.href = '#';
-  link.download = 'CV_Ricardo_Lopez_2026.html';
+  link.href = 'cv_es_ricardo_lopez_2026.pdf';
+  link.download = 'CV_Ricardo_Lopez_2026.pdf';
   // Save current page as download
   const html = document.documentElement.outerHTML;
   const blob = new Blob([html], { type: 'text/html' });
