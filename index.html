@@ -748,9 +748,10 @@
     <button class="lang-btn" onclick="setLang('en')" id="btn-en" style="cursor:pointer; border:none; background:none;">
       <img src="britanica.png" alt="English" style="width:32px; height:auto;">
     </button>
-    <a href="cv-es_ricardo_lopez_2026.pdf" id="download-link" class="download-btn" target="_blank">
-        ⬇ <span data-lang="es" class="active">Descargar CV</span><span data-lang="en">Download CV</span>
-    </a>
+    <a href="cv-es_ricardo_lopez_2026.pdf" id="download-link" class="download-btn">
+    ⬇ <span data-lang="es" class="active">Descargar CV</span>
+    <span data-lang="en">Download CV</span>
+</a>
   </div>
 </header>
 
@@ -1221,9 +1222,7 @@ function setLang(lang) {
   document.querySelectorAll('[data-lang]').forEach(el => {
     if (el.getAttribute('data-lang') === lang) {
       el.classList.add('active');
-      // for inline elements, force display to inline for spans
-      if (el.tagName === 'SPAN') el.style.display = 'inline';
-      else el.style.display = '';
+      el.style.display = (el.tagName === 'SPAN') ? 'inline' : 'block';
     } else {
       el.classList.remove('active');
       el.style.display = 'none';
@@ -1292,14 +1291,15 @@ async function submitForm(e) {
 
 // ---- DOWNLOAD CV ----
 function downloadCV() {
-  // Creates a text-based CV download as fallback
   const link = document.createElement('a');
-  link.href = '#';
-  link.download = 'CV_Ricardo_Lopez_2026.html';
-  // Save current page as download
-  const html = document.documentElement.outerHTML;
-  const blob = new Blob([html], { type: 'text/html' });
-  link.href = URL.createObjectURL(blob);
+  // Selecciona el archivo basado en el idioma actual de la página
+  if (currentLang === 'es') {
+    link.href = 'cv-es_ricardo_lopez_2026.pdf';
+    link.download = 'cv-es_ricardo_lopez_2026.pdf';
+  } else {
+    link.href = 'cv-en_ricardo_lopez_2026.pdf';
+    link.download = 'cv-en_ricardo_lopez_2026.pdf';
+  }
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
