@@ -1215,8 +1215,8 @@ function setLang(lang) {
   currentLang = lang;
 
   // Toggle buttons
-  document.getElementById('btn-es').classList.toggle('active', lang === 'es');
-  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
 
   // Toggle content — handle all [data-lang] elements
   document.querySelectorAll('[data-lang]').forEach(el => {
