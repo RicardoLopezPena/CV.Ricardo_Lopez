@@ -1219,11 +1219,11 @@ let currentLang = 'es';
 function setLang(lang) {
   currentLang = lang;
 
-  // Toggle buttons
-  document.getElementById('lang-es').classList.toggle('active', lang === 'es');
-  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  // Actualizar clases de los botones
+  document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
 
-  // Toggle content — handle all [data-lang] elements
+  // Cambiar visibilidad de elementos
   document.querySelectorAll('[data-lang]').forEach(el => {
     if (el.getAttribute('data-lang') === lang) {
       el.classList.add('active');
@@ -1235,6 +1235,20 @@ function setLang(lang) {
   });
 }
 
+function downloadCV() {
+  const link = document.createElement('a');
+  // Asegúrate de tener estos archivos en tu servidor
+  link.href = (currentLang === 'es') ? 'cv-es_ricardo_lopez_2026.pdf' : 'cv-en_ricardo_lopez_2026.pdf';
+  link.setAttribute('download', '');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+// Inicialización
+document.addEventListener('DOMContentLoaded', () => {
+  setLang('es');
+});
 // Init properly
 document.addEventListener('DOMContentLoaded', () => {
   setLang('es');
