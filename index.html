@@ -742,16 +742,19 @@
 <header class="top-bar">
   <span class="brand-mark">Fluxus Quantum</span>
   <div class="top-actions">
-    <button class="lang-btn active" onclick="setLang('es')" id="btn-es" style="cursor:pointer; border:none; background:none;">
+    <!-- IDs corregidos para que coincidan con la función JS -->
+    <button class="lang-btn active" id="btn-es" onclick="setLang('es')" style="border:none; background:none;">
       <img src="espana.png" alt="Español" style="width:32px; height:auto;">
     </button>
-    <button class="lang-btn" onclick="setLang('en')" id="btn-en" style="cursor:pointer; border:none; background:none;">
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')" style="border:none; background:none;">
       <img src="britanica.png" alt="English" style="width:32px; height:auto;">
     </button>
-    <a href="cv-es_ricardo_lopez_2026.pdf" id="download-link" class="form-submit" download style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
-    ⬇ <span data-lang="es" class="active">Descargar CV</span>
-    <span data-lang="en">Download CV</span>
-</a>
+    
+    <!-- Botón de descarga dinámico -->
+    <button onclick="downloadCV()" class="download-btn">
+      ⬇ <span data-lang="es" class="active">Descargar CV</span>
+      <span data-lang="en">Download CV</span>
+    </button>
   </div>
 </header>
 
