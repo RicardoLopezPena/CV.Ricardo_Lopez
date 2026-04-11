@@ -1235,6 +1235,7 @@ function setLang(lang) {
 
 // Init properly
 document.addEventListener('DOMContentLoaded', () => {
+  window.setLang = setLang;
   setLang('es');
 
   // Achievement toggles via event delegation
