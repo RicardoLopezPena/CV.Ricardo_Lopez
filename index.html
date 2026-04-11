@@ -349,12 +349,13 @@
   /* ---- EXPERIENCE ---- */
   .experience-grid {
     display: grid;
-    gap: 2px;
+    gap: 0;
   }
 
   .exp-item {
     background: var(--dark-card);
     border: 1px solid var(--dark-border);
+    border-top: none;
     padding: 40px;
     display: grid;
     grid-template-columns: 180px 1fr;
@@ -375,7 +376,9 @@
     transform-origin: bottom;
   }
 
-  .exp-item:hover { border-color: var(--gold-dim); }
+  .exp-item:first-child { border-top: 1px solid var(--dark-border); }
+  .exp-item + .exp-item { border-top: 1px solid #4A90C4; box-shadow: 0 -1px 0 rgba(91,200,232,0.15); }
+  .exp-item:hover { border-color: #4A90C4; }
   .exp-item:hover::before { transform: scaleY(1); }
 
   .exp-period {
