@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ricardo López — Consultor Logístico</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricardo López — Consultor Logístico</title>
 <link rel="icon" type="image/ico" href="icono_rl.ico">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800;12..96,900&family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -729,11 +729,12 @@
 
   /* HIDDEN by language */
   [data-lang="en"] { display: none !important; }
-[data-lang="es"] { display: inline-block !important; }
+        .lang-en-active [data-lang="en"] { display: inline-block !important; }
+        .lang-en-active [data-lang="es"] { display: none !important; }
 
 /* Cuando el body tiene la clase lang-en-active, se invierte */
-.lang-en-active [data-lang="en"] { display: inline-block !important; }
-.lang-en-active [data-lang="es"] { display: none !important; }
+.lang-en-active p[data-lang="en"], .lang-en-active span[data-lang="en"] { display: block !important; }
+        .lang-en-active p[data-lang="es"], .lang-en-active span[data-lang="es"] { display: none !important; }
 
 /* Corrección para bloques */
 .lang-en-active .hero-desc [data-lang="en"] { display: block !important; }
@@ -743,19 +744,15 @@
 <header class="top-bar">
   <span class="brand-mark">Fluxus Quantum</span>
   <div class="top-actions">
-    <button class="lang-btn" onclick="cambiarIdioma('es')" style="cursor:pointer; background:none; border:none;">
-        <img src="espana.png" alt="ES" style="width:32px;">
-    </button>
-    <button class="lang-btn" onclick="cambiarIdioma('en')" style="cursor:pointer; background:none; border:none;">
-        <img src="britanica.png" alt="EN" style="width:32px;">
-    </button>
-    <button onclick="descargarCV()" class="download-btn">
+    <button onclick="cambiarIdioma('es')" style="cursor:pointer; background:none; border:none;"><img src="espana.png" style="width:30px;"></button>
+    <button onclick="cambiarIdioma('en')" style="cursor:pointer; background:none; border:none;"><img src="britanica.png" style="width:30px;"></button>
+    <button onclick="downloadCV()" class="download-btn">
         <span data-lang="es">Descargar CV</span>
         <span data-lang="en">Download CV</span>
     </button>
-</div>
+  </div>
 </header>
-
+  
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
@@ -1206,26 +1203,25 @@
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ---- LANGUAGE SWITCHER ----
-function cambiarIdioma(lang) {
-    const body = document.body;
-    
-    // Cambia la clase del body para activar los estilos CSS
-    if (lang === 'en') {
-        body.classList.add('lang-en-active');
-        body.classList.remove('lang-es-active');
-    } else {
-        body.classList.remove('lang-en-active');
-        body.classList.add('lang-es-active');
+let currentLang = 'es';
+
+    function cambiarIdioma(lang) {
+        currentLang = lang;
+        if (lang === 'en') {
+            document.body.classList.add('lang-en-active');
+        } else {
+            document.body.classList.remove('lang-en-active');
+        }
     }
-}
 
-function downloadCV() {
-  const file = (document.getElementById('btn-es').style.opacity === '1') 
-    ? 'cv-es_ricardo_lopez_2026.pdf' 
-    : 'cv-en_ricardo_lopez_2026.pdf';
-  window.open(file, '_blank');
-}
-
+    function downloadCV() {
+        const url = (currentLang === 'es') ? 'cv-es_ricardo_lopez_2026.pdf' : 'cv-en_ricardo_lopez_2026.pdf';
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = url;
+        link.click();
+    }
+      
 // Inicializar
 window.onload = () => setLang('es');
 
@@ -1235,24 +1231,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Achievement toggles via event delegation
   document.addEventListener('click', function(e) {
-    const btn = e.target.closest('.ach-btn');
-    if (!btn) return;
-    const id = btn.getAttribute('data-target');
-    const el = document.getElementById(id);
-    if (!el) return;
-    const isOpen = el.style.display !== 'none';
-    el.style.display = isOpen ? 'none' : 'flex';
-    const esSpan = btn.querySelector('[data-lang="es"]');
-    const enSpan = btn.querySelector('[data-lang="en"]');
-    if (isOpen) {
-      if (esSpan) esSpan.textContent = '▸ Ver Logros';
-      if (enSpan) enSpan.textContent = '▸ View Achievements';
-    } else {
-      if (esSpan) esSpan.textContent = '▾ Ocultar Logros';
-      if (enSpan) enSpan.textContent = '▾ Hide Achievements';
-    }
-  });
-});
+        const btn = e.target.closest('.ach-btn');
+        if (!btn) return;
+        const el = document.getElementById(btn.getAttribute('data-target'));
+        if (el) {
+            const isHidden = el.style.display === 'none';
+            el.style.display = isHidden ? 'flex' : 'none';
+        }
+    });
 
 // ---- FORM ----
 async function submitForm(e) {
