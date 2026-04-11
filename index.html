@@ -712,6 +712,38 @@
     text-align: center;
   }
 
+/* ---- SOCIAL FLOAT ---- */
+  .social-float {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 200;
+  }
+
+  .social-float-btn {
+    width: 44px;
+    height: 44px;
+    background: var(--dark-card);
+    border: 1px solid #4A90C4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(74,144,196,0.15), inset 0 0 10px rgba(74,144,196,0.04);
+    transition: all 0.3s;
+  }
+
+  .social-float-btn:hover {
+    border-color: #5BC8E8;
+    box-shadow: 0 0 20px rgba(91,200,232,0.4), inset 0 0 14px rgba(91,200,232,0.07);
+    transform: translateX(3px);
+  }
+  
   /* ---- WHATSAPP FLOAT ---- */
   .whatsapp-float {
     position: fixed;
