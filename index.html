@@ -742,18 +742,14 @@
 <header class="top-bar">
   <span class="brand-mark">Fluxus Quantum</span>
   <div class="top-actions">
-    <!-- IDs corregidos para que coincidan con la función JS -->
-    <button class="lang-btn active" id="btn-es" onclick="setLang('es')" style="border:none; background:none;">
-      <img src="espana.png" alt="Español" style="width:32px; height:auto;">
+    <button class="lang-btn" id="btn-es" onclick="setLang('es')">
+      <img src="espana.png" alt="ES" style="width:24px; vertical-align:middle;">
     </button>
-    <button class="lang-btn" id="btn-en" onclick="setLang('en')" style="border:none; background:none;">
-      <img src="britanica.png" alt="English" style="width:32px; height:auto;">
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">
+      <img src="britanica.png" alt="EN" style="width:24px; vertical-align:middle;">
     </button>
-    
-    <!-- Botón de descarga dinámico -->
     <button onclick="downloadCV()" class="download-btn">
-      ⬇ <span data-lang="es" class="active">Descargar CV</span>
-      <span data-lang="en">Download CV</span>
+      ⬇ <span data-lang="es" class="active">Descargar CV</span><span data-lang="en">Download CV</span>
     </button>
   </div>
 </header>
@@ -769,21 +765,19 @@
       <span data-lang="en">Operations optimization specialist in demand planning and inventory synchronization. 30+ years transforming supply chains across Latin America.</span>
     </p>
     <div class="hero-ctas">
-      <a href="#contacto" class="btn-primary">
-        ✉ <span data-lang="es" class="active">Contactar</span><span data-lang="en">Get in Touch</span>
-      </a>
-      <a href="#experiencia" class="btn-secondary">
-        <span data-lang="es" class="active">Ver Experiencia</span><span data-lang="en">View Experience</span>
-      </a>
+      <a href="#contacto" class="btn-primary">✉ <span data-lang="es" class="active">Contactar</span><span data-lang="en">Get in Touch</span></a>
+      <a href="#experiencia" class="btn-secondary"><span data-lang="es" class="active">Ver Experiencia</span><span data-lang="en">View Experience</span></a>
     </div>
   </div>
+  
   <div class="hero-right">
-  <div class="hero-decoration">RL</div>
-  <div class="hero-photo-frame" style="width: 80%; max-width: 380px;">
-    <img src="fcv_ricardo_lopez_perfil.png" alt="Ricardo López" style="width: 100%; height: auto; display: block; filter: drop-shadow(0 0 6px rgba(0, 242, 255, 0.8));">
+    <!-- Solo una capa para la foto -->
+    <div class="hero-photo-frame" style="border: 1px solid #1C3451; padding: 10px; background: rgba(17, 34, 54, 0.5);">
+      <img src="fcv_ricardo_lopez_perfil.png" alt="Ricardo López" style="width: 100%; max-width: 400px; display: block; filter: drop-shadow(0 0 10px rgba(91, 200, 232, 0.3));">
+    </div>
   </div>
-</div>
-
+</section>
+  
 <!-- STATS -->
 <div class="stats-bar">
   <div class="stat-item">
@@ -1213,39 +1207,33 @@
 let currentLang = 'es';
 
 function setLang(lang) {
-  currentLang = lang;
-
-  // Actualizar clases de los botones
-  document.getElementById('btn-es').classList.toggle('active', lang === 'es');
-  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-
-  // Cambiar visibilidad de elementos
+  // 1. Cambiar botones
+  document.getElementById('btn-es').style.opacity = (lang === 'es') ? '1' : '0.5';
+  document.getElementById('btn-en').style.opacity = (lang === 'en') ? '1' : '0.5';
+  
+  // 2. Cambiar textos
   document.querySelectorAll('[data-lang]').forEach(el => {
-    if (el.getAttribute('data-lang') === lang) {
+    if(el.getAttribute('data-lang') === lang) {
+      el.style.display = 'inline'; // o 'block' según el elemento
       el.classList.add('active');
-      el.style.display = (el.tagName === 'SPAN') ? 'inline' : 'block';
     } else {
-      el.classList.remove('active');
       el.style.display = 'none';
+      el.classList.remove('active');
     }
   });
 }
 
 function downloadCV() {
-  const link = document.createElement('a');
-  // Asegúrate de tener estos archivos en tu servidor
-  link.href = (currentLang === 'es') ? 'cv-es_ricardo_lopez_2026.pdf' : 'cv-en_ricardo_lopez_2026.pdf';
-  link.setAttribute('download', '');
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  const file = (document.getElementById('btn-es').style.opacity === '1') 
+    ? 'cv-es_ricardo_lopez_2026.pdf' 
+    : 'cv-en_ricardo_lopez_2026.pdf';
+  window.open(file, '_blank');
 }
 
-// Inicialización
-document.addEventListener('DOMContentLoaded', () => {
-  setLang('es');
-});
-// Init properly
+// Inicializar
+window.onload = () => setLang('es');
+
+  // Init properly
 document.addEventListener('DOMContentLoaded', () => {
   setLang('es');
 
