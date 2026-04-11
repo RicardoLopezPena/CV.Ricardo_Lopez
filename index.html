@@ -1318,20 +1318,6 @@
 // ---- LANGUAGE SWITCHER ----
 let currentLang = 'es';
 
-function setLang(lang) {
-  currentLang = lang;
-  document.getElementById('lang-es').classList.toggle('active', lang === 'es');
-  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-  document.querySelectorAll('[data-lang]').forEach(el => {
-    if (el.getAttribute('data-lang') === lang) {
-      el.classList.add('active');
-      el.style.display = (el.tagName === 'SPAN') ? 'inline' : 'block';
-    } else {
-      el.classList.remove('active');
-      el.style.display = 'none';
-    }
-  });
-}
 </script>
 <script>
 
@@ -1341,12 +1327,18 @@ let currentLang = 'es';
 function setLang(lang) {
   currentLang = lang;
 
-  // Toggle buttons
   document.getElementById('lang-es').classList.toggle('active', lang === 'es');
   document.getElementById('lang-en').classList.toggle('active', lang === 'en');
 
-  // Toggle content — handle all [data-lang] elements
   document.querySelectorAll('[data-lang]').forEach(el => {
+    if (el.closest('.skill-card-back')) {
+      if (el.getAttribute('data-lang') === lang) {
+        el.classList.add('active');
+      } else {
+        el.classList.remove('active');
+      }
+      return;
+    }
     if (el.getAttribute('data-lang') === lang) {
       el.classList.add('active');
       el.style.display = (el.tagName === 'SPAN') ? 'inline' : 'block';
