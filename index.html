@@ -221,27 +221,26 @@
   .btn-secondary:hover { border-color: #5BC8E8; color: #7DDFF5; box-shadow: 0 0 20px rgba(91,200,232,0.4), inset 0 0 14px rgba(91,200,232,0.07); transform: translateY(-2px); }
 
   .hero-right {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-  }
+}
 
-  .hero-right::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 70%);
-  }
+.hero-photo-frame {
+    border: 1px solid #1C3451; 
+    padding: 10px; 
+    background: rgba(17, 34, 54, 0.5);
+    width: 80% !important; /* Fuerza el 80% original */
+    max-width: 380px !important;
+}
 
-  .hero-photo-frame {
-    position: relative;
-    z-index: 2;
-    opacity: 0;
-    animation: fadeIn 1.2s 0.6s forwards;
-  }
-
+.hero-photo-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+  
   .hero-photo-frame::before {
     content: '';
     position: absolute;
@@ -729,29 +728,32 @@
   }
 
   /* HIDDEN by language */
-  [data-lang] { display: none; }
-  [data-lang].active { display: block; }
-  .stat-label[data-lang].active { display: block; }
-  .exp-desc[data-lang].active { display: block; }
-  .skill-desc[data-lang].active { display: block; }
-</style>
-</head>
-<body>
+  [data-lang="en"] { display: none !important; }
+[data-lang="es"] { display: inline-block !important; }
+
+/* Cuando el body tiene la clase lang-en-active, se invierte */
+.lang-en-active [data-lang="en"] { display: inline-block !important; }
+.lang-en-active [data-lang="es"] { display: none !important; }
+
+/* Corrección para bloques */
+.lang-en-active .hero-desc [data-lang="en"] { display: block !important; }
+.lang-en-active .hero-desc [data-lang="es"] { display: none !important; }
 
 <!-- TOP BAR -->
 <header class="top-bar">
   <span class="brand-mark">Fluxus Quantum</span>
   <div class="top-actions">
-    <button class="lang-btn" id="btn-es" onclick="setLang('es')">
-      <img src="espana.png" alt="ES" style="width:24px; vertical-align:middle;">
+    <button class="lang-btn" onclick="cambiarIdioma('es')" style="cursor:pointer; background:none; border:none;">
+        <img src="espana.png" alt="ES" style="width:32px;">
     </button>
-    <button class="lang-btn" id="btn-en" onclick="setLang('en')">
-      <img src="britanica.png" alt="EN" style="width:24px; vertical-align:middle;">
+    <button class="lang-btn" onclick="cambiarIdioma('en')" style="cursor:pointer; background:none; border:none;">
+        <img src="britanica.png" alt="EN" style="width:32px;">
     </button>
-    <button onclick="downloadCV()" class="download-btn">
-      ⬇ <span data-lang="es" class="active">Descargar CV</span><span data-lang="en">Download CV</span>
+    <button onclick="descargarCV()" class="download-btn">
+        <span data-lang="es">Descargar CV</span>
+        <span data-lang="en">Download CV</span>
     </button>
-  </div>
+</div>
 </header>
 
 <!-- HERO -->
@@ -1204,23 +1206,17 @@
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ---- LANGUAGE SWITCHER ----
-let currentLang = 'es';
-
-function setLang(lang) {
-  // 1. Cambiar botones
-  document.getElementById('btn-es').style.opacity = (lang === 'es') ? '1' : '0.5';
-  document.getElementById('btn-en').style.opacity = (lang === 'en') ? '1' : '0.5';
-  
-  // 2. Cambiar textos
-  document.querySelectorAll('[data-lang]').forEach(el => {
-    if(el.getAttribute('data-lang') === lang) {
-      el.style.display = 'inline'; // o 'block' según el elemento
-      el.classList.add('active');
+function cambiarIdioma(lang) {
+    const body = document.body;
+    
+    // Cambia la clase del body para activar los estilos CSS
+    if (lang === 'en') {
+        body.classList.add('lang-en-active');
+        body.classList.remove('lang-es-active');
     } else {
-      el.style.display = 'none';
-      el.classList.remove('active');
+        body.classList.remove('lang-en-active');
+        body.classList.add('lang-es-active');
     }
-  });
 }
 
 function downloadCV() {
