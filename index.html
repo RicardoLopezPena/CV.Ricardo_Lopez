@@ -1386,6 +1386,19 @@ window.setLang = function(lang) {
       el.style.display = 'none';
     }
   });
+
+  var dlLink = document.getElementById('download-link');
+  if (dlLink) {
+    if (lang === 'es') {
+      dlLink.href = 'cv-es_ricardo_lopez_2026.pdf';
+      dlLink.setAttribute('download', 'cv-es_ricardo_lopez_2026.pdf');
+      dlLink.innerHTML = '⬇ Descargar CV';
+    } else {
+      dlLink.href = 'cv-en_ricardo_lopez_2026.pdf';
+      dlLink.setAttribute('download', 'cv-en_ricardo_lopez_2026.pdf');
+      dlLink.innerHTML = '⬇ Download CV';
+    }
+  }
 };
 </script>
 <script>
